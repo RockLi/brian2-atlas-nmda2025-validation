@@ -16,6 +16,13 @@ gate error was `3.72e-15`; discrete outputs satisfied the deterministic gate.
 The 20,480-neuron run retained all 754,974,720 synapses and 28 finite public
 output fields. The deterministic claim ends at 10,240 neurons.
 
+| Neurons | Maximum voltage error | Maximum NMDA-gate error | Deterministic gate |
+| ---: | ---: | ---: | --- |
+| 5,120 | `1.11e-16 V` | `3.00e-15` | Pass |
+| 10,240 | `8.33e-17 V` | `3.72e-15` | Pass |
+
+![Matched eight-core CPU scaling and speedup.](figures/cpu_scaling_and_speedup.png)
+
 ## Unified execution matrix
 
 All reported execution modes are shown in one table. A dash means that the
@@ -49,6 +56,8 @@ CUDA and Metal use a separate float32 scientific contract and are not compared
 as speedups over the float64 CPU rows. The Metal values include a general
 sparse event-delivery improvement and preserve the frozen public outputs byte
 for byte. Paper timings from different hardware are not used as denominators.
+
+![Same-host MPI advantage and fixed-rank multi-node saturation.](figures/mpi_same_host_and_placement.png)
 
 ## Functional network check
 
