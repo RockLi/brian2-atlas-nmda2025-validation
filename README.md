@@ -13,6 +13,7 @@ approximation.
 - Deterministic float64 validation passed through 10,240 neurons.
 - The complete 20,480-neuron configuration retained 754,974,720 synapses.
 - Matched eight-core Linux runs measured 1.13x to 2.10x CPU speedups.
+- A unified matrix aligns CPU, MPI, CUDA and Metal results by tested setup.
 - Same-host MPI outperformed shared-memory workers at 10,240 neurons, while
   fixed-rank multi-node scaling saturated.
 - CUDA and Metal were evaluated under a separate float32 contract.

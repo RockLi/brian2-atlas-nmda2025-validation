@@ -1,0 +1,14 @@
+host,allocation,neurons,contract_scope,brian2_cpu_s,atlas_cpu_s,atlas_mpi_s,atlas_cuda_s,atlas_metal_s
+Linux EPYC,8 pinned cores,2560,float64 compiled-region median,69.942,61.998,-,-,-
+Linux EPYC,8 pinned cores,5120,float64 compiled-region median,289.1,194.66,-,-,-
+Linux EPYC,8 pinned cores,10240,float64 compiled-region median,1256.384,598.964,-,-,-
+Linux EPYC,8 pinned cores,20480,float64 compiled-region median,4443.328,2271.71,-,-,-
+Apple Silicon Mac Studio,8 threads,2560,float64 compiled-region median,72.823,42.909,-,-,-
+Apple Silicon Mac Studio,8 threads,10240,float64 compiled-region median,756.458,552.947,-,-,-
+Linux EPYC,40 physical cores,10240,float64 simulation only,-,257.774,153.675,-,-
+Linux cluster,40 ranks on 1 node,20480,float64 simulation only,-,-,588.812,-,-
+Linux cluster,40 ranks on 4 nodes,20480,float64 simulation only,-,-,586.537,-,-
+NVIDIA L4,GPU,5120,float32 warm median,-,-,-,158.144,-
+NVIDIA A100-SXM4-40GB,GPU,5120,float32 warm median,-,-,-,189.966,-
+Apple M3,8 GPU cores,640,float32 optimized warm median,-,-,-,-,20.321
+Apple M3,8 GPU cores,2560,float32 optimized warm median,-,-,-,-,110.802

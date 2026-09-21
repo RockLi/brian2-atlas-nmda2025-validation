@@ -16,34 +16,39 @@ gate error was `3.72e-15`; discrete outputs satisfied the deterministic gate.
 The 20,480-neuron run retained all 754,974,720 synapses and 28 finite public
 output fields. The deterministic claim ends at 10,240 neurons.
 
-## Matched CPU results
+## Unified execution matrix
 
-These medians compare original Brian2 and Brian2-Atlas on the same Linux host,
-the same eight pinned CPU cores and the same compiled simulation region.
+All reported execution modes are shown in one table. A dash means that the
+mode was unsupported or that no comparable run was recorded for that exact
+host, allocation, workload and numerical contract. Times are seconds.
 
-| Neurons | Synapses | Brian2 | Brian2-Atlas | Speedup | Atlas peak RSS |
-| ---: | ---: | ---: | ---: | ---: | ---: |
-| 2,560 | 11,796,480 | 69.942 s | 61.998 s | 1.13x | +5.5% |
-| 5,120 | 47,185,920 | 289.100 s | 194.660 s | 1.49x | +7.3% |
-| 10,240 | 188,743,680 | 1,256.384 s | 598.964 s | 2.10x | +7.9% |
-| 20,480 | 754,974,720 | 4,443.328 s | 2,271.710 s | 1.96x | +8.3% |
+| Host and allocation | Neurons | Contract and timing scope | Brian2 CPU | Atlas CPU | Atlas MPI | Atlas CUDA | Atlas Metal |
+| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| Linux EPYC, 8 pinned cores | 2,560 | float64, compiled-region median | 69.942 | 61.998 | — | — | — |
+| Linux EPYC, 8 pinned cores | 5,120 | float64, compiled-region median | 289.100 | 194.660 | — | — | — |
+| Linux EPYC, 8 pinned cores | 10,240 | float64, compiled-region median | 1,256.384 | 598.964 | — | — | — |
+| Linux EPYC, 8 pinned cores | 20,480 | float64, compiled-region median | 4,443.328 | 2,271.710 | — | — | — |
+| Apple Silicon Mac Studio, 8 threads | 2,560 | float64, compiled-region median | 72.823 | 42.909 | — | — | — |
+| Apple Silicon Mac Studio, 8 threads | 10,240 | float64, compiled-region median | 756.458 | 552.947 | — | — | — |
+| Linux EPYC, 40 physical cores | 10,240 | float64, simulation only | — | 257.774 | 153.675 | — | — |
+| Linux cluster, 40 ranks on 1 node | 20,480 | float64, simulation only | — | — | 588.812 | — | — |
+| Linux cluster, 40 ranks on 4 nodes | 20,480 | float64, simulation only | — | — | 586.537 | — | — |
+| NVIDIA L4 | 5,120 | float32, warm median | — | — | — | 158.144 | — |
+| NVIDIA A100-SXM4-40GB | 5,120 | float32, warm median | — | — | — | 189.966 | — |
+| Apple M3, 8 GPU cores | 640 | float32, optimized warm median | — | — | — | — | 20.321 |
+| Apple M3, 8 GPU cores | 2,560 | float32, optimized warm median | — | — | — | — | 110.802 |
 
-Paper timings from different hardware are not used as speedup denominators.
+The first four rows give matched Linux CPU speedups of 1.13x, 1.49x, 2.10x
+and 1.96x, with Atlas peak-RSS changes of +5.5%, +7.3%, +7.9% and +8.3%.
+On the same 40 physical Linux cores at 10,240 neurons, MPI is 1.68x faster than
+shared-memory workers. Fixed-rank placement across four nodes provides almost
+no improvement at 20,480 neurons because communication and synchronization
+occur at every timestep.
 
-## Parallel and accelerator observations
-
-At 10,240 neurons on the same 40 physical Linux cores, 40 MPI ranks completed
-the simulation in 153.675 s versus 257.774 s for 40 shared-memory workers, a
-1.68x advantage. Holding the total rank count at 40 while spreading work across
-machines produced little improvement: the 20,480-neuron result changed from
-588.812 s on one node to 586.537 s on four nodes. Per-timestep communication
-and synchronization limit this placement-scaling experiment.
-
-CUDA tests on L4 and A100 and Metal tests on Apple M3 used a separate float32
-scientific contract, so they are not reported as speedups over the float64 CPU
-baseline. A general sparse event-delivery improvement reduced Metal warm time
-from 40.419 to 20.321 s at 640 neurons and from 261.629 to 110.802 s at 2,560
-neurons while preserving the frozen public outputs byte for byte.
+CUDA and Metal use a separate float32 scientific contract and are not compared
+as speedups over the float64 CPU rows. The Metal values include a general
+sparse event-delivery improvement and preserve the frozen public outputs byte
+for byte. Paper timings from different hardware are not used as denominators.
 
 ## Functional network check
 
