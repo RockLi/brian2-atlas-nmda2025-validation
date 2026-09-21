@@ -1,0 +1,54 @@
+{
+  "schema": "brian2-atlas-nmda2025-public-summary-v1",
+  "upstream_commit": "68e6dd970cfc6bab26459fcb8c34ee0f16560d9e",
+  "runtime": "Rust 1.98.1",
+  "primary_numeric_mode": "float64",
+  "dt_ms": 0.1,
+  "biological_duration_s": 1.0,
+  "rk4_steps": 10000,
+  "deterministic_correctness_through_neurons": 10240,
+  "largest_structural_run_neurons": 20480,
+  "largest_structural_run_synapses": 754974720,
+  "cpu_rows": [
+    {
+      "neurons": 2560,
+      "synapses": 11796480,
+      "brian2_median_s": 69.942,
+      "atlas_median_s": 61.998,
+      "speedup": 1.13,
+      "atlas_peak_rss_change_percent": 5.5
+    },
+    {
+      "neurons": 5120,
+      "synapses": 47185920,
+      "brian2_median_s": 289.1,
+      "atlas_median_s": 194.66,
+      "speedup": 1.49,
+      "atlas_peak_rss_change_percent": 7.3
+    },
+    {
+      "neurons": 10240,
+      "synapses": 188743680,
+      "brian2_median_s": 1256.384,
+      "atlas_median_s": 598.964,
+      "speedup": 2.1,
+      "atlas_peak_rss_change_percent": 7.9
+    },
+    {
+      "neurons": 20480,
+      "synapses": 754974720,
+      "brian2_median_s": 4443.328,
+      "atlas_median_s": 2271.71,
+      "speedup": 1.96,
+      "atlas_peak_rss_change_percent": 8.3
+    }
+  ],
+  "decision_pairs": 2000,
+  "decision_simulations": 4000,
+  "qualifications": [
+    "CUDA and Metal use a separate float32 contract.",
+    "The deterministic same-event gate ends at 10,240 neurons.",
+    "Multi-node MPI held total ranks fixed at 40.",
+    "NEST exact/approximate cost is not an engine speedup."
+  ]
+}

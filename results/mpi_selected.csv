@@ -1,0 +1,5 @@
+configuration,neurons,parallel_units,nodes,simulation_s,mode
+single_host,10240,40,1,153.675,MPI ranks
+single_host,10240,40,1,257.774,shared-memory workers
+one_node,20480,40,1,588.812,MPI ranks
+four_nodes,20480,40,4,586.537,MPI ranks

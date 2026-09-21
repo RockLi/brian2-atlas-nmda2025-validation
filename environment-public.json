@@ -1,0 +1,13 @@
+{
+  "schema": "brian2-atlas-nmda2025-public-environment-v1",
+  "frontend": "Brian2 2.10.1 development revision used by the experiment",
+  "backend_runtime": "Rust 1.98.1",
+  "cpu_primary": "dual-socket AMD EPYC 9454 Linux host",
+  "cpu_secondary": "Apple Silicon Mac Studio",
+  "cuda": [
+    "NVIDIA L4",
+    "NVIDIA A100-SXM4-40GB"
+  ],
+  "metal": "Apple M3, 8 GPU cores",
+  "notes": "Exact private host addresses and local paths are intentionally omitted."
+}
