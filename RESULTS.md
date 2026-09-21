@@ -60,6 +60,25 @@ the exact/approximate NEST cost ratio is not a Brian2-Atlas engine speedup.
 
 ![Decision probability across five coherence levels.](figures/decision_psychometric_400_20260920.png)
 
+## Why this result is useful
+
+The authors' approximation addresses the high scientific cost of explicit NMDA
+state. This validation asks a complementary systems question: how much of that
+cost can be reduced by a new execution backend while preserving the original
+explicit/general Brian2 formulation? The full-scale reproduction, deterministic
+numerical gates and matched-resource CPU measurements make this useful as an
+independent external validation rather than a replacement for the paper's
+scientific contribution.
+
+The strongest engine claims are the matched eight-core CPU results: 2.10x at
+10,240 neurons and 1.96x at 20,480 neurons. Dividing the 8-core Brian2 time at
+20,480 neurons by the 40-rank Atlas MPI time gives a 7.55x cross-configuration
+observation, but it is not reported as a pure MPI speedup because both resources
+and timing scope differ. The matched same-host MPI result is 1.68x at 10,240
+neurons on the same 40 physical cores. The near-flat one-node to four-node result
+at 20,480 neurons is also informative: timestep-level communication, rather
+than available compute, limits this fixed-rank placement experiment.
+
 ## Interpretation limits
 
 - Deterministic same-event validation ends at 10,240 neurons.
